@@ -9,6 +9,7 @@ import (
 	"github.com/CityOfZion/neo-go/pkg/core"
 	"github.com/CityOfZion/neo-go/pkg/core/storage"
 	"github.com/CityOfZion/neo-go/pkg/network"
+	"github.com/CityOfZion/neo-go/pkg/network/payload"
 	"github.com/CityOfZion/neo-go/pkg/rpc"
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
@@ -29,6 +30,12 @@ func NewCommand() cli.Command {
 			cli.BoolFlag{Name: "debug, d"},
 		},
 	}
+}
+
+type serverCallback struct{}
+
+func (s *serverCallback) OnReceivedINV(inv payload.Inventory) {
+	log.Printf("received inv = %v", inv)
 }
 
 func startServer(ctx *cli.Context) error {
@@ -64,6 +71,10 @@ func startServer(ctx *cli.Context) error {
 	server := network.NewServer(serverConfig, chain)
 	rpcServer := rpc.NewServer(chain, cfg.ApplicationConfiguration.RPCPort, server)
 	errChan := make(chan error)
+
+	//Sample of server callback
+	callback := &serverCallback{}
+	server.SetCallback(callback)
 
 	go server.Start(errChan)
 	go rpcServer.Start(errChan)

@@ -49,6 +49,14 @@ type (
 		quit       chan struct{}
 
 		proto <-chan protoTuple
+
+		//callback
+		callback ServerCallback
+	}
+
+	//ServerCallback
+	ServerCallback interface {
+		OnReceivedINV(payload.Inventory)
 	}
 
 	protoTuple struct {
@@ -87,6 +95,9 @@ func NewServer(config ServerConfig, chain *core.Blockchain) *Server {
 // ID returns the servers ID.
 func (s *Server) ID() uint32 {
 	return s.id
+}
+func (s *Server) SetCallback(callback ServerCallback) {
+	s.callback = callback
 }
 
 // Start will start the server and its underlying transport.
@@ -266,6 +277,11 @@ func (s *Server) handleInvCmd(p Peer, inv *payload.Inventory) error {
 	}
 	payload := payload.NewInventory(inv.Type, inv.Hashes)
 	p.Send(NewMessage(s.Net, CMDGetData, payload))
+
+	if s.callback != nil {
+		go s.callback.OnReceivedINV(*inv)
+	}
+
 	return nil
 }
 

@@ -20,24 +20,6 @@
   version = "v1.1.0"
 
 [[projects]]
-  name = "github.com/go-kit/kit"
-  packages = ["log"]
-  revision = "4dc7be5d2d12881735283bcab7352178e190fc71"
-  version = "v0.6.0"
-
-[[projects]]
-  name = "github.com/go-logfmt/logfmt"
-  packages = ["."]
-  revision = "390ab7935ee28ec6b286364bba9b4dd6410cb3d5"
-  version = "v0.3.0"
-
-[[projects]]
-  name = "github.com/go-stack/stack"
-  packages = ["."]
-  revision = "259ab82a6cad3992b4e21ff5cac294ccb06474bc"
-  version = "v1.7.0"
-
-[[projects]]
   name = "github.com/go-yaml/yaml"
   packages = ["."]
   revision = "7f97868eec74b32b0982dd158a51a446d1da7eb5"
@@ -48,12 +30,6 @@
   name = "github.com/golang/snappy"
   packages = ["."]
   revision = "553a641470496b2327abcac10b36396bd98e45c9"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/kr/logfmt"
-  packages = ["."]
-  revision = "b84e30acd515aadc4b783ad4ff83aff3299bdfe0"
 
 [[projects]]
   name = "github.com/pkg/errors"
@@ -150,6 +126,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d4338e14e8103a6626ecf662f3d0c08e972a39e667a6c76f31cc8938f59f2cba"
+  inputs-digest = "83630d732c34b1ddf24cd34025fd9fdd982a5e5075ec93a450e7edada658c6c9"
   solver-name = "gps-cdcl"
   solver-version = 1
